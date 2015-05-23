@@ -1,11 +1,26 @@
+from sys import exit
 import time
-file = open("MyCode.lang", "r")
-read = file.readlines()
+import tkinter
+file = open("Code.vision", "r")
+code = file.readlines()
 file.close()
-length = read.__len__()
-for i in range(length):
-    getCodeOnLine = read[i-1]
-    if getCodeOnLine[:11] == 'OnConsole: ':
-        print(getCodeOnLine[11:])
-    if getCodeOnLine[:13] == 'SystemPause: ':
-        time.sleep(int(getCodeOnLine[13:]))
+
+for line in code:
+    if line[:11] == "OnConsole: ":
+        print(line[11:])
+    elif line[:13] == "SystemPause: ":
+        time.sleep(int(line[13:]))
+    elif line[:17] == "OnGUIController: ":
+        newScreen = tkinter.Tk()
+        newScreen.title(line[17:])
+        newScreen.mainloop()
+    elif line[:2] == "//":
+        print()
+    elif line[:0] == "":
+        b = 0
+    elif line[:1] == " ":
+        a = 0
+    else:
+        print("Code Error: Please Revise Code Block '" + line + "'")
+        time.sleep(10)
+        exit()
